@@ -57,7 +57,7 @@
 !
       call MatrixProduct3x3(matrixInA,matrixInB,matrixOutAB)
 !
-      write(*,*)' The product of the two matrices is... '
+!      write(*,*)' The product of the two matrices is... '
 !
       call PrintMatrix3x3(matrixOutAB)
 !
