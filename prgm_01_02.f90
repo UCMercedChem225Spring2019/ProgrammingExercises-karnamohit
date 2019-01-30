@@ -6,10 +6,10 @@
 !     H. P. Hratchian, 2019.
 !
       implicit none
-      integer,parameter::inFileUnitA=10
+      integer,parameter::inFileUnitA=10,inFileUnitB=20
       integer::errorFlag,i
-      real,dimension(3,3)::matrixInA
-      character(len=128)::fileNameA
+      real,dimension(3,3)::matrixInA,matrixInB
+      character(len=128)::fileNameA,fileNameB
 !
 !
 !     Start by asking the user for the name of the data file.
@@ -31,11 +31,31 @@
       endDo
       close(inFileUnitA)
 !
+!     Asking for the user for the name of the second data file.
+!
+      write(*,*)' What is the name of the second input data file?'
+      read(*,*) fileNameB
+!
+!     Open the data file and read matrixInA from that file.
+!
+      open(unit=inFileUnitB,file=TRIM(fileNameB),status='old',  &
+        iostat=errorFlag)
+      if(errorFlag.ne.0) then
+        write(*,*)' There was a problem opening the input file.'
+!        goto 999
+        stop
+      endIf
+      do i = 1,3
+        read(inFileUnitB,*) matrixInB(1,i),matrixInB(2,i),matrixInB(3,i)
+      endDo
+      close(inFileUnitB)
+!
 !     Call the subroutine PrintMatrix to print matrixInA.
 !
       call PrintMatrix3x3(matrixInA)
+      call PrintMatrix3x3(matrixInB)
 !
-! 999 continue
+!  999 continue
       End Program prgm_01_01
 
 
