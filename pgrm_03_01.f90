@@ -38,7 +38,7 @@
 !     (full storage) matrix invSqrtInputMatrix.
 !
       write(*,*)' The matrix loaded (column) upper-triangle packed:'
-      call SymmetricPacked2Matrix_UpperPacked(nDim,inputSymMatrix,  &
+      call SymmetricPacked2Matrix_UpperPac(nDim,inputSymMatrix,  &
         inputSqMatrix)
       write(*,*)' Input Matrix:'
       call Print_Matrix_Full_Real(inputSqMatrix,nDim,nDim)

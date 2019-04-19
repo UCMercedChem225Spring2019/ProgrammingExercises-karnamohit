@@ -42,7 +42,7 @@
 !
       write(*,*)' Input Matrix:'
       call Print_Matrix_Full_Real(sqMatrix,nDim,nDim)
-      call Sq2SymMatrix(nDim,sqMatrix,symMatrix)
+      call Sq2SymMatrix_UpCol(nDim,sqMatrix,symMatrix)
       write(*,*)
       write(*,*)' Output Matrix:'
       do i = 1,lenSym

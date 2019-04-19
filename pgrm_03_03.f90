@@ -67,10 +67,10 @@
 !
 !     Form fTilde and solve for the MO energies and coefficients.
 !
-      call SymmetricPacked2Matrix_UpperPacked(nBasis,symFock,sqFock)
+      call SymmetricPacked2Matrix_UpperPac(nBasis,symFock,sqFock)
       tempSqMatrix = MatMul(invSqrtOverlap,sqFock)
       fockTilde = MatMul(tempSqMatrix,invSqrtOverlap)
-      call Sq2SymMatrix(nBasis,fockTilde,tempSymMatrix)
+      call Sq2SymMatrix_UpCol(nBasis,fockTilde,tempSymMatrix)
       call SSPEV('V','U',nBasis,tempSymMatrix,moEnergies,  &
         moCoefficients,nBasis,SSPEV_Scratch,iError)
       If(iError.ne.0) then
@@ -87,3 +87,4 @@
 !
 !
 !
+      end program
