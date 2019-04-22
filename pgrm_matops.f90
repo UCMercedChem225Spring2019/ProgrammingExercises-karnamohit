@@ -1,3 +1,8 @@
+      Module MatOps
+      Implicit None
+!
+      Contains
+!
       Subroutine Print_Matrix_Full_Real(AMat,M,N)
 !
 !     This subroutine prints a real matrix that is fully dimension -
@@ -125,11 +130,13 @@
       Real,Dimension(nDim,nDim),Intent(Out)::invSqrtofArrayIn
 !
       Integer::i,IError
-      Real,Dimension(nDim,nDim)::EVecs,TempMat
+      Real,Dimension(nDim*(nDim+1)/2)::tempMat
+      Real,Dimension(nDim,nDim)::EVecs
       Real,Dimension(nDim)::EVals
       Real,Dimension(3*nDim)::Temp_Vector
 !
-      Call SSPEV('V','U',nDim,ArrayIn,EVals,EVecs,nDim,  &
+      tempMat = ArrayIn
+      Call SSPEV('V','U',nDim,tempMat,EVals,EVecs,nDim,  &
         Temp_Vector,IError)
       do i=1,nDim
         EVals(i) = 1.0/sqrt(EVals(i))
@@ -173,3 +180,5 @@
 !
       Return
       End Subroutine Sq2SymMatrix_UpCol
+!
+      End Module MatOps
