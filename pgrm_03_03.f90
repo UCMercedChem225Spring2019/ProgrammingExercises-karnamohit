@@ -145,8 +145,8 @@
       do i=1,nBasis
         oneElectronEnergy = oneElectronEnergy + tempSqMatrix(i,i)
       endDo
-      write(*,*)' One-electron contribution, Tr(PH) = ' &
-                ,oneElectronEnergy,' Ha'
+      write(*,*)' One-electron energy contribution =  ' &
+                ,oneElectronEnergy
 
 !
 !     evaluating and printing the two-electron contributions to the
@@ -158,8 +158,8 @@
       do i=1,nBasis
         twoElectronEnergy = twoElectronEnergy + tempSqMatrix(i,i)
       endDo
-      write(*,*)' Two-electron contribution, 0.5*Tr(P(F-H)) = ' &
-                ,twoElectronEnergy,' Ha'
+      write(*,*)' Two-electron energy contribution =  ' &
+                ,twoElectronEnergy
 
 !
 !     evaluating and printing PS, and Tr(PS) (should equal the number of
@@ -168,13 +168,13 @@
       call SymmetricPacked2Matrix_UpperPac(nBasis,symOverlap, &
                                            tempSqMatrix)
       tempSqMatrix = MatMul(densityMatrix,tempSqMatrix)
-      write(*,*)' PS matrix:'
-      call Print_Matrix_Full_Real(tempSqMatrix,nBasis,nBasis)
+      !write(*,*)' PS matrix:'
+      !call Print_Matrix_Full_Real(tempSqMatrix,nBasis,nBasis)
       tracePS = 0.0
       do i=1,nElectrons
         tracePS = tracePS + tempSqMatrix(i,i)
       endDo
-      write(*,*)' Total number of electrons = ',tracePS
+      write(*,*)' tr(PS) = <PS> =  ',tracePS
 
       end program
 
