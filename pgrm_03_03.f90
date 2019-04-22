@@ -146,7 +146,7 @@
         oneElectronEnergy = oneElectronEnergy + tempSqMatrix(i,i)
       endDo
       write(*,*)' One-electron contribution, Tr(PH) = ' &
-                ,oneElectronEnergy
+                ,oneElectronEnergy,' Ha'
 
 !
 !     evaluating and printing the two-electron contributions to the
@@ -159,7 +159,7 @@
         twoElectronEnergy = twoElectronEnergy + tempSqMatrix(i,i)
       endDo
       write(*,*)' Two-electron contribution, 0.5*Tr(P(F-H)) = ' &
-                ,twoElectronEnergy
+                ,twoElectronEnergy,' Ha'
 
 !
 !     evaluating and printing PS, and Tr(PS) (should equal the number of
@@ -174,7 +174,7 @@
       do i=1,nElectrons
         tracePS = tracePS + tempSqMatrix(i,i)
       endDo
-      write(*,*)' Total number of electrons =',tracePS
+      write(*,*)' Total number of electrons = ',tracePS
 
       end program
 
