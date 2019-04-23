@@ -184,15 +184,12 @@
       Real,Dimension(nDim,nDim),Intent(Out)::invSqrtofArrayIn
 !
       Integer::i,IError
-      Real,Dimension(nDim*(nDim+1)/2)::tempMat
-      Real,Dimension(nDim,nDim)::EVecs
+      Real,Dimension(nDim,nDim)::EVecs,TempMat
       Real,Dimension(nDim)::EVals
       Real,Dimension(3*nDim)::Temp_Vector
 !
-      tempMat = ArrayIn
-      Call SSPEV('V','U',nDim,tempMat,EVals,EVecs,nDim,  &
+      Call SSPEV('V','U',nDim,ArrayIn,EVals,EVecs,nDim,  &
         Temp_Vector,IError)
-      invSqrtofArrayIn = 0
       do i=1,nDim
         EVals(i) = 1.0/sqrt(EVals(i))
         invSqrtofArrayIn(i,i) = EVals(i)

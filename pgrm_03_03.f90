@@ -319,6 +319,7 @@
       tempMat = ArrayIn
       Call SSPEV('V','U',nDim,tempMat,EVals,EVecs,nDim,  &
         Temp_Vector,IError)
+      invSqrtofArrayIn = 0
       do i=1,nDim
         EVals(i) = 1.0/sqrt(EVals(i))
         invSqrtofArrayIn(i,i) = EVals(i)
