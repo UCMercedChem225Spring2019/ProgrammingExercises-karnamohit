@@ -28,7 +28,7 @@
 !
       implicit none
       integer,parameter::unitIn=10
-      integer::i,iError,nElectrons,nOcc,nBasis,lenSym
+      integer::i,iError,nElectrons,nOcc,nBasis,lenSym,j,k
       real::oneElectronEnergy,twoElectronEnergy,tracePS
       real,dimension(:),allocatable::symFock,symCoreHamiltonian,symOverlap,  &
         moEnergies,tempSymMatrix
@@ -130,7 +130,17 @@
 !
 !     evaluating and printing the density matrix in the atomic orbital basis
 !
-      densityMatrix = MatMul(moCoefficients,Transpose(moCoefficients))
+      densityMatrix = 0
+      do i=1,nBasis
+        do j=1,nBasis
+          do k=1,nOcc
+            densityMatrix(i,j) = densityMatrix(i,j) + &
+                   2*moCoefficients(i,k)*moCoefficients(j,k)
+          endDo
+        endDo
+      endDo
+
+!      MatMul(moCoefficients,Transpose(moCoefficients))
       write(*,*)' Density Matrix in AO Basis:'
       call Print_Matrix_Full_Real(densityMatrix,nBasis,nBasis)
 
@@ -152,11 +162,10 @@
 !     evaluating and printing the two-electron contributions to the
 !     total electronic energy, 0.5*Tr(P(F-H))
 !
-      tempSqMatrix = (sqFock - sqCoreHamiltonian)*0.5
-      tempSqMatrix = MatMul(densityMatrix,tempSqMatrix)
+      tempSqMatrix = MatMul(densityMatrix,(sqFock - sqCoreHamiltonian))
       twoElectronEnergy = 0
       do i=1,nBasis
-        twoElectronEnergy = twoElectronEnergy + tempSqMatrix(i,i)
+        twoElectronEnergy = twoElectronEnergy + 0.5*tempSqMatrix(i,i)
       endDo
       write(*,*)' Two-electron energy contribution =  ' &
                 ,twoElectronEnergy
@@ -171,7 +180,7 @@
       !write(*,*)' PS matrix:'
       !call Print_Matrix_Full_Real(tempSqMatrix,nBasis,nBasis)
       tracePS = 0.0
-      do i=1,nElectrons
+      do i=1,nBasis
         tracePS = tracePS + tempSqMatrix(i,i)
       endDo
       write(*,*)' tr(PS) = <PS> =  ',tracePS
